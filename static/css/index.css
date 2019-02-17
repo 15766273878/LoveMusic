@@ -1,0 +1,494 @@
+*.swiper-box {
+    width: 100%;
+    margin-top: 2rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.swiper-box .swiper {
+    width: 300%;
+    display: flex;
+}
+
+.swiper-box .swiper>div {
+    flex: 1;
+    background: #f4f4f4;
+}
+
+/*轮播图开始*/
+
+div.slide {
+    overflow: hidden;
+    width: 100%;
+    height: 6rem;
+    position: relative;
+}
+
+div.slide ul.imgUl {
+    position: absolute;
+    left: 0;
+    width: 700%;
+    display: flex;
+}
+
+div.slide ul.imgUl li {
+    flex: 1;
+}
+
+div.slide ul.imgUl li a {
+    display: block;
+    width: 100%;
+}
+
+div.slide ul.imgUl li a img {
+    width: 100%;
+}
+
+div.slide ul.slide-list {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0.4rem;
+}
+
+div.slide ul.slide-list li {
+    float: left;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: white;
+    margin-right: 0.2rem;
+}
+
+div.slide ul.slide-list li.active {
+    background: orangered;
+}
+
+/*轮播图结束*/
+
+/* 电台和热门歌单部分开始 */
+
+div.radioList,
+div.songList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.4rem 0.4rem;
+}
+
+div.radioList div,
+div.songList div {
+    width: 100%;
+}
+
+div.radioList div a,
+div.songList div a {
+    float: left;
+    width: 48%;
+    background: white;
+    box-sizing: border-box;
+    padding: 0.4rem 0.4rem;
+    display: flex;
+    flex-direction: column;
+}
+
+div.radioList div a:nth-child(2n),
+div.songList div a:nth-child(2n) {
+    margin-left: 4%;
+}
+
+div.songList div a {
+    position: relative;
+    margin-top: 0.5rem;
+}
+
+div.radioList div a img,
+div.songList div a img {
+    width: 100%;
+}
+
+div.songList div a .songListAuthor {
+    font-weight: bold;
+}
+
+div.songList div a .accessnum {
+    position: absolute;
+    bottom: 30%;
+    left: 10%;
+    color: white;
+    font-size: 0.5rem;
+}
+
+div.songList div a .songListDesc {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 电台和热门歌单部分结束 */
+
+/* 搜素部分开始 */
+
+div.search {
+    width: 100%;
+    height: 2rem;
+    background: #0aa9ff;
+    display: flex;
+    display: none;
+}
+
+div.search form {
+    flex: 1;
+    background: #0aa9ff;
+    display: flex;
+    align-items: center;
+}
+
+div.search form input {
+    flex: 1;
+    height: 60%;
+    border-bottom: 0.02rem solid #ffffff;
+    background: #0aa9ff;
+    color: white;
+}
+
+div.search form input::-webkit-input-placeholder {
+    color: gainsboro;
+}
+
+div.search form input::-moz-placeholder {
+    color: gainsboro;
+}
+
+div.search form input:-ms-input-placeholder {
+    color: gainsboro;
+}
+
+div.search form span.iconfont {
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    line-height: 2rem;
+    font-size: 1rem;
+    border-radius: 50%;
+    color: white;
+}
+
+div.search form span:hover {
+    background: #93c2ff;
+}
+
+div.list {
+    width: 100%;
+}
+
+div.list div.songs {
+    display: flex;
+    align-items: center;
+}
+
+div.list div.songs~div {
+    border-top: 1px solid gainsboro;
+}
+
+div.list div.songs i {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+}
+
+div.list div.songs div {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    font-size: 0.5rem;
+}
+
+/* 搜索部分结束 */
+
+/* 社区上传部分开始 */
+
+.weui-uploader__bd {
+    height: 8rem;
+    background: white;
+    position: relative;
+}
+
+.weui-textarea {
+    width: 90%;
+    margin: 0 auto;
+    background: #f4f4f4;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.weui-btn_default {
+    position: absolute;
+    right: 1rem;
+    top: 0.6rem;
+}
+
+.communityList {
+    width: 100%;
+}
+
+.communityList>div {
+    width: 100%;
+    background: white;
+    margin-top: 0.5rem;
+    border-radius: 0.4rem;
+    position: relative;
+    box-sizing: border-box;
+    padding: 0.5rem;
+}
+
+.communityList div .topic {
+    width: 100%;
+    font-size: 0.8rem;
+    font-family: STFangsong;
+}
+
+.communityList div a {
+    position: absolute;
+    width: 0.4rem;
+    height: 0.4rem;
+    background-size: 100%;
+}
+
+.communityList div a.zan {
+    right: 2rem;
+    bottom: 0.5rem;
+    color: grey;
+}
+
+.communityList div a.hadzan {
+    right: 2rem;
+    bottom: 0.5rem;
+    color: red;
+}
+
+.communityList div a.discuss {
+    right: 1rem;
+    bottom: 0.5rem;
+}
+
+.communityList .videoPlayer {
+    width: 60%;
+    height: 4rem;
+    background: black;
+    margin: 0 auto;
+}
+
+.communityList .videoPlayer video {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.communityList .videoPlayer i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.5rem;
+    margin-left: -1rem;
+    font-size: 2rem;
+}
+
+/* 社区上传部分结束 */
+
+.playerDetail {
+    position: fixed;
+    top: 100vh;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    background: url('../img/player_bg.jpg') no-repeat center;
+}
+
+.playerDetail>div {
+    display: flex;
+    flex-direction: column;
+}
+
+.playerDetail .header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+
+.playerDetail a.icon-htmal5icon39 {
+    font-size: 2rem;
+    color: white;
+}
+
+.playerDetail .header div {
+    padding-left: 0.2rem;
+}
+
+.playerDetail .lyrics {
+    width: 100%;
+    height: 60%;
+    position: relative;
+}
+
+.playerDetail .lyrics img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.playerDetail .lyrics div {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.playerDetail .lyrics div ul {
+    width: 100%;
+    position: absolute;
+    color: white;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.playerDetail .operate {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 30%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.operate>div {
+    width: 100%;
+    flex: 1;
+}
+
+.operate div:first-child,
+.operate div:last-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.operate div:first-child .loveF {
+    background-image: url('../img/loveF.png');
+}
+
+.operate div:first-child .loveT {
+    background-image: url('../img/loveT.png');
+}
+
+.operate div:first-child span,
+.operate div:last-child span {
+    width: 1rem;
+    height: 1rem;
+    background-size: 100% 100%;
+}
+
+.operate div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.operate div:last-child span {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.operate>div:nth-child(2) .progress {
+    width: 80%;
+    height: 0.1rem;
+    position: relative;
+    background: blue;
+}
+
+.operate>div:nth-child(2) .progress div {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.operate>div:nth-child(2) .progress .circle {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: white;
+    z-index: 2;
+}
+
+.operate div:last-child .playing {
+    width: 1.7rem;
+    height: 1.7rem;
+    background-image: url('../img/playW.png');
+}
+
+.operate div:last-child .pausing {
+    width: 1.7rem;
+    height: 1.7rem;
+    background-image: url('../img/pauseW.png');
+}
+
+.songsList {
+    position: fixed;
+    right: -7rem;
+    top: 50%;
+    width: 7rem;
+    height: 12rem;
+    box-shadow: 0 0 2px;
+    background: black;
+    opacity: 0.8;
+    transform: translateY(-50%);
+    font-size: 0.6rem;
+    color: white;
+    overflow: hidden;
+    z-index: 100;
+}
+
+.songsList ul {
+    width: 100%;
+    position: absolute;
+}
+
+.songsList ul li {
+    width: 100%;
+    height: 1.3rem;
+    line-height: 1.3rem;
+    padding-left: 1.4rem;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-bottom: 1px solid gainsboro;
+}
+
+.songsList ul li.love::before {
+    position: absolute;
+    left: 0.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0.8rem;
+    height: 0.8rem;
+    content: '';
+    background-image: url('../img/loveT.png');
+    background-size: 100%;
+}
+
+.myMusic div ul li {
+    font-size: 0.8rem;
+    padding-left: 0.3rem;
+}

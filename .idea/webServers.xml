@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a97dd19d-826d-4292-bfe6-8e0efe5429a9" name="LoveMusic" url="http://120.79.87.125">
+        <fileTransfer host="120.79.87.125" port="22" privateKey="C:\Users\Maibenben\.ssh\ljx_newLinux" rootFolder="/data" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

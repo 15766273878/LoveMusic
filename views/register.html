@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>注册</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scala=no">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/weui.css">
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_508229_97hnlte919x2bj4i.css">
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: #F4F4F4;
+      box-sizing: border-box;
+    }
+
+    body>div {
+      width: 100%;
+      height: 10rem;
+      line-height: 10rem;
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+      background: cadetblue;
+    }
+
+    body>div span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+    }
+
+    body>div img {
+      width: 100%;
+    }
+
+    form>div {
+      background: white;
+      margin-bottom: 0.8rem;
+      height: 2rem;
+      font-size: 0.6rem;
+    }
+
+    .weui-btn_primary {
+      background: #048ad3;
+      width: 90%;
+    }
+
+    input.weui-input {
+      width: 70%;
+    }
+
+    .weui-btn {
+      -webkit-tap-highlight-color: #069dee;
+      margin-top: 2rem;
+    }
+
+    .weui-cell_vcode:last-of-type {
+      position: relative;
+    }
+
+    #vcode {
+      width: 4rem;
+    }
+
+    .vcode {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 5rem;
+      height: 100%;
+    }
+
+    .vcode a {
+      font-size: 0.6rem;
+    }
+
+    .toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 4.4rem;
+      height: 4.4rem;
+      background: black;
+      border-radius: 0.5rem;
+      opacity: 0.8;
+      color: white;
+      display: none;
+      vertical-align: middle;
+    }
+
+    .toast span {
+      font-size: 0.5rem;
+      line-height: 0.8rem;
+      vertical-align: middle;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <span>注册</span>
+  </div>
+  <form>
+    <div class="weui-cell ">
+      <div class="weui-cell__hd ">
+        <label class="weui-label ">用户名：</label>
+      </div>
+      <div class="weui-cell__bd ">
+        <input class="weui-input username" type="text " placeholder="请输入用户名 ">
+        <span class="iconfont icon-guanbi hide"></span>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd ">
+        <label class="weui-label">密码：</label>
+      </div>
+      <div class="weui-cell__bd ">
+        <input class="weui-input password" type="password" placeholder="请输入密码 ">
+        <span class="iconfont icon-guanbi hide"></span>
+      </div>
+    </div>
+    <a class="weui-btn weui-btn_primary " href="javascript:;" id="login">注册</a>
+  </form>
+  <!-- 弹出提示开始 -->
+  <div class="toast">
+    <span></span>
+  </div>
+  <!-- 弹出提示结束 -->
+</body>
+
+</html>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js "></script>
+<script src="js/common.js "></script>
+<script>
+  // 验证码
+  let vcodes = '';
+  $('input').on('input', function () {
+    this.value = this.value.replace(/[\u4e00-\u9fa5\s]/g, '')
+    if (this.id === 'vcode') {
+      if (this.value.length > 4) {
+        this.value = this.value.slice(0, 4)
+      }
+    } else {
+      if (this.value) {
+        this.nextElementSibling.style.display = 'inline'
+      } else {
+        this.nextElementSibling.style.display = 'none'
+      }
+    }
+  })
+
+  $('.icon-guanbi').on('click', function () {
+    this.previousElementSibling.value = '';
+    this.style.display = 'none';
+  });
+
+  // 登录部分开始
+  (function () {
+    const username = $('.username');
+    const password = $('.password');
+
+    function showToast(message) {
+      $('.toast').fadeIn();
+      $('.toast').children().html(message)
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        $('.toast').fadeOut();
+      }, 2000);
+    }
+
+    $('#login').on('click', function () {
+      const name = username.val();
+      const pw = password.val();
+      if (!name) {
+        this.message = '请输入用户名'
+        showToast(this.message)
+      } else if (!pw) {
+        this.message = '请输入密码'
+        showToast(this.message)
+      } else if (name.length < 6 || name.length > 16 || pw.length < 6 || pw.length > 16) {
+        this.message = '用户名或密码长度不对(6~16)'
+        showToast(this.message)
+      } else {
+        // 表单验证通过
+        // $.ajax({
+        //   url: 'http://127.0.0.1/register',
+        //   type: 'POST',
+        //   data: {
+        //     username: name,
+        //     password: pw
+        //   },
+        //   dataType: 'json',
+        //   success: function (rs) {
+        //     const data = rs;
+        //     if (data.success) {
+        //       showToast(data.msg)
+        //       clearTimeout(this.timer)
+        //       this.timer = setTimeout(function () {
+        //         window.location.href = 'http://127.0.0.1/login.html'
+        //       }, 1000)
+        //     } else {
+        //       showToast(data.msg)
+        //     }
+        //   },
+        //   error: function (err) {
+        //     alert(JSON.stringify(err))
+        //     console.log(err)
+        //   }
+        // })
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST', 'http://127.0.0.1/register')
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhr.send(`username=${name}&password=${pw}`)
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+              const data = JSON.parse(xhr.responseText);
+              console.log(data)
+              if (data.success) {
+                showToast(data.msg)
+                clearTimeout(this.timer)
+                this.timer = setTimeout(function () {
+                  window.location.href = 'http://127.0.0.1/login.html'
+                }, 1000)
+              } else {
+                showToast(data.msg)
+              }
+            } else {
+              showToast('未知错误:' + xhr.status)
+            }
+
+          }
+        }
+      }
+    })
+  })()
+  // 登录部分结束
+</script>

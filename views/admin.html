@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>爱音乐后台动态管理平台</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    table {
+      margin: 100px auto;
+    }
+
+    table,
+    thead,
+    tbody,
+    td {
+      border-collapse: collapse;
+      border: 1px solid grey;
+    }
+
+    td {
+      padding: 10px;
+      text-align: center;
+      position: relative;
+    }
+
+    td img {
+      width: 200px;
+    }
+
+    tr {
+      position: relative;
+    }
+
+    .love::before {
+      width: 20px;
+      height: 20px;
+      content: '';
+      background: url("../img/love.png");
+      background-size: 100%;
+      position: absolute;
+      left: -30px;
+    }
+
+    .important::before {
+      width: 20px;
+      height: 20px;
+      content: '';
+      background: url("../img/important.png");
+      background-size: 100%;
+      position: absolute;
+      left: -30px;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <thead>
+      <td>用户昵称</td>
+      <td>发布时间</td>
+      <td>话题</td>
+      <td>视频</td>
+      <td>操作</td>
+    </thead>
+    <tbody class="content">
+      {{#each(topicData)}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.time}}</td>
+        <td>{{this.topic}}</td>
+        <td>
+          {{#if(this.videoUrl)}}
+          <a href="{{this.videoUrl}}">视频</a>
+          {{/if}} {{#if(!this.videoUrl)}}
+          <span>该用户没发布视频</span>
+          {{/if}}
+        </td>
+        <td>
+          <button onclick="del('{{this._id}}')">下架</button>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</body>
+</script>
+<!-- 页面模板结束 -->
+<script src="../js/template-web.js"></script>
+<script src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+<script>
+  function del(id) {
+    if (confirm('你确定要删除吗？')) {
+      $.ajax({
+        url: 'http://127.0.0.1/adminEdit',
+        type: 'post',
+        data: {
+          method: 'del',
+          _id: id
+        },
+        dataType: 'json',
+        success: function (rs) {
+          if (rs.success) {
+            window.location.reload()
+          }
+        },
+        error: function (err) {
+          console.log(err)
+        }
+      })
+    }
+  }
+</script>
+
+</html>

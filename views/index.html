@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>爱音乐</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scala=no">
+    <link rel="shot icon" href="logo.png">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/weui.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_508229_s987uma0fiuow29.css">
+
+</head>
+
+<body>
+    <!--头部的公共导航条开始-->
+    <div class="nav">
+        <div class="container clearfix">
+            <a class="Menu" href="javascript:;"></a>
+            <div>
+                <a class="iconfont icon-yinyue"></a>
+                <a class="iconfont icon-pindao" active></a>
+                <a class="iconfont icon-community"></a>
+            </div>
+            <a class="Search" href="javascript:;"></a>
+        </div>
+    </div>
+    <!--头部的公共导航条结束-->
+
+    <!--底部的播放栏开始-->
+    <div class="playBar">
+        <div class="container">
+            <a href="javascript:;" id="song-cover" class="fl">
+                <img src="http://imge.kugou.com/stdmusic/20150720/20150720213627602031.jpg">
+            </a>
+            <a class="song-info" href="javascript:;">
+                <h4>张学友</h4>
+                <h5>张学友 - 只想一生跟你走</h5>
+            </a>
+            <div class="fr">
+                <a href="javascript:;" id="playList"></a>
+                <a href="javascript:;" id="playBtn" class="playing"></a>
+            </div>
+        </div>
+        <audio id="music" src='http://fs.w.kugou.com/201806010325/6bf3c8289daf1d3545078679563e5804/G005/M09/16/09/pYYBAFT59oGAC-fDAEyTcN8a4sA378.mp3'></audio>
+    </div>
+    <!--底部的播放栏结束-->
+
+    <!--点击菜单出现的侧边栏菜单开始-->
+    <!--蒙版-->
+    <div class="masking hide"></div>
+
+    <ul class="menu">
+        <li class="menu-bg">
+            <a class="sculpture">
+                <img src="img/sculpture.jpg_q30">
+            </a>
+            <span class="name">
+                用户未登录
+            </span>
+        </li>
+        <li class="option">
+            <img src="img/news.png">
+            <span>我的喜爱</span>
+        </li>
+        <li class="option">
+            <img src="img/news.png">
+            <span>我的动态</span>
+        </li>
+        <li class="option">
+            <img src="img/news.png">
+            <span>我的信息</span>
+        </li>
+        <li class="option">
+            <img src="img/news.png">
+            <span>我的评论</span>
+        </li>
+        <li class="setting">
+            <a href="admin">
+                <span>管理</span>
+            </a>
+            <a href="login.html">
+                <span>登录</span>
+            </a>
+            <a class="singOut" href="javascript:;">
+                <span>注销</span>
+            </a>
+        </li>
+    </ul>
+    <!--点击菜单出现的侧边栏结束-->
+
+    <!--主页三个功能模块开始-->
+    <div class="swiper-box">
+        <div class="swiper">
+            <div class="myMusic">
+                <div>
+                    <span>我的歌单</span>
+                    <div></div>
+                </div>
+
+            </div>
+            <div class="dj">
+                <!--轮播图开始-->
+                <div class="slide">
+                    <ul class="imgUl">
+                        <li>
+                            <a href="{{djData.slider[4].linkUrl}}">
+                                <img src="{{djData.slider[4].picUrl}}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{djData.slider[0].linkUrl}}">
+                                <img src="{{djData.slider[0].picUrl}}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{djData.slider[1].linkUrl}}">
+                                <img src="{{djData.slider[1].picUrl}}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{djData.slider[2].linkUrl}}">
+                                <img src="{{djData.slider[2].picUrl}}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{djData.slider[3].linkUrl}}">
+                                <img src="{{djData.slider[3].picUrl}}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{djData.slider[4].linkUrl}}">
+                                <img src="{{djData.slider[4].picUrl}}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{djData.slider[0].linkUrl}}">
+                                <img src="{{djData.slider[0].picUrl}}">
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="slide-list">
+                        <li class="active"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <!--轮播图结束-->
+                <!-- 电台和热门歌单部分开始 -->
+                <div class="radioList">
+                    <span>电台</span>
+                    <div>
+                        {{#each(djData.radioList)}}
+                        <a href="javascript:;" data-radioid={{this.radioid}}>
+                            <img src="{{this.picUrl}}">
+                            <span>{{this.Ftitle}}</span>
+                        </a>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="songList">
+                    <span>热门歌单</span>
+                    <div>
+                        {{#each(djData.songList)}}
+                        <a href="javascript:;" data-radioid={{this.radioid}}>
+                            <img src="{{this.picUrl}}">
+                            <span class="accessnum">{{this.accessnum/10000}}万</span>
+                            <span class="songListAuthor">{{this.songListAuthor}}</span>
+                            <span class="songListDesc">{{this.songListDesc}}</span>
+                        </a>
+                        {{/each}}
+                    </div>
+                </div>
+                <!-- 电台和热门歌单部分结束 -->
+            </div>
+            <!-- 社区开始 -->
+            <div class="community">
+                <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files" id="uploaderFiles">
+                        <li class="weui-uploader__file hide" style="border: 1px solid gainsboro;">
+                            <video src="" style="width: 100%;height: 100%;" autoplay loop></video>
+                        </li>
+                        <li class="weui-uploader__file weui-uploader__file_status loading hide">
+                            <div class="weui-uploader__file-content">
+                                <i class="weui-loading"></i>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="weui-uploader__input-box">
+                        <input id="uploaderInput" class="weui-uploader__input" type="file" accept="video/*">
+                    </div>
+                    <a href="javascript:;" class="topicSend weui-btn weui-btn_mini weui-btn_default">发布动态</a>
+                    <textarea class="weui-textarea" placeholder="说点什么" rows="3"></textarea>
+                </div>
+                <div class="communityList">
+                    {{#each(topicData)}}
+                    <div>
+                        <h4 class="who">{{this.name}}</h4>
+                        <h5 style="color: gray;margin-bottom: 0.2rem;">{{this.time}}</h5>
+                        <div class="topic">{{this.topic}}</div>
+                        {{#if(this.videoUrl)}}
+                        <div class="videoPlayer">
+                            <video src="" data-url="{{this.videoUrl}}"></video>
+                            <i class="iconfont icon-bofang"></i>
+                        </div>
+                        {{/if}}
+                        <a class="zan iconfont icon-dianzan"></a>
+                        <a class="discuss iconfont icon-pinglun" href="topic?topicId={{this._id}}"></a>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <!-- 社区结束 -->
+        </div>
+    </div>
+    <!--主页电台dj页面结束-->
+    <!-- 搜索音乐部分开始 -->
+    <div class="search">
+        <form>
+            <span class="iconfont icon-htmal5icon39 back"></span>
+            <input type="text" placeholder="输入你要搜索的关键词">
+            <span class="iconfont icon-sousuo"></span>
+        </form>
+    </div>
+    <div class="list"></div>
+    <!-- 搜索音乐部分结束 -->
+
+    <!-- 显示歌曲信息的播放框开始 -->
+    <div class="playerDetail">
+        <div class="header">
+            <a href="javascript:;" class="iconfont icon-htmal5icon39"></a>
+            <div>
+                <h1> 张学友 - 只想一生跟你走</h1>
+                <h3>
+                    <em>张学友</em>
+                </h3>
+            </div>
+        </div>
+        <div class="lyrics">
+            <div></div>
+            <img style="width: 100%;height: 100%" src="http://imge.kugou.com/stdmusic/20150720/20150720213627602031.jpg">
+        </div>
+        <div class="operate">
+            <div>
+                <span id="markLove" class="loveF"></span>
+                <a id="download" style="display: block; width: 1.2rem;height: 1.2rem; background-image: url('img/download.png');background-size: 100% 100%;"></a>
+                <span style="background-image: url('img/player-list.png')"></span>
+            </div>
+            <div>
+                <div class="progress">
+                    <div class="circle"></div>
+                    <div class="buffered" style="height: 100%;width:50%;background: grey"></div>
+                    <div class="current" style="height: 100%;width:0;background: darkred"></div>
+                </div>
+            </div>
+            <div>
+                <span class="preSong" style="background-image: url('img/pre.png')"></span>
+                <span id="detail-play" class="playing"></span>
+                <span class="nextSong" style="background-image: url('img/next.png')"></span>
+            </div>
+        </div>
+    </div>
+    <!-- 显示歌曲信息的播放框结束 -->
+
+    <!-- 歌单开始 -->
+    <div class="songsList">
+        <ul>
+        </ul>
+    </div>
+    <!-- 歌单结束 -->
+    <!-- 弹出提示开始 -->
+    <div class="mask" style="display:none;background: transparent;width: 100vw;height: 100vh;position: fixed;top: 0;left: 0;z-index: 99"></div>
+    <div class="toast">
+        <span></span>
+    </div>
+    <!-- 弹出提示结束 -->
+</body>
+
+</html>
+<!-- 页面模板开始 -->
+<script id="searchResult" type="text/html">
+    <% for(var i=0;i<lists.length;i++){ %>
+        <div class="songs" onclick="playMusic('<%=lists[i].FileHash%>','<%=lists[i].AlbumID%>')">
+            <i class="iconfont icon-yinyue"></i>
+            <div>
+                <h3>
+                    <%=lists[i].SongName%>
+                </h3>
+                <span>
+                    <%=lists[i].SingerName%>
+                </span>
+            </div>
+        </div>
+        <% } %>
+</script>
+<!-- 页面模板结束 -->
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/template-web.js"></script>
+<script src="js/common.js"></script>
+<script src="js/index.js"></script>

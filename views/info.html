@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>个人信息</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scala=no">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/weui.css">
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_508229_uy2yv0tcoi6hia4i.css">
+  <style>
+    .content {
+      width: 100%;
+      height: 100%;
+
+    }
+
+    .content .header {
+      width: 100%;
+      height: 40vh;
+      background-image: url('img/info-bg.jpg');
+      background-size: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 10px;
+    }
+
+
+    .header div:first-child {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .header div:nth-child(2) span:last-child {
+      font-size: 0.6rem;
+    }
+
+    .header a,
+    span {
+      color: white;
+      font-size: 0.8rem;
+    }
+
+    .content .sculpture {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .content .sculpture img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .content div:last-child {
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    .info span {
+      font-size: 0.6rem;
+      display: block;
+      width: 100%;
+      border-bottom: 1px solid gainsboro;
+      color: black;
+    }
+
+    .video img {
+      width: 100%;
+    }
+
+    .video video {
+      width: 100%;
+      height: 6rem;
+      padding: 20px;
+      box-sizing: border-box;
+      background: darkslategray;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <div class="header">
+      <div class="operate">
+        <a href="javascript:;" class="iconfont icon-htmal5icon39"></a>
+        <a href="javascript:;" class="edit">
+          <i class="iconfont icon-bianji1"></i>编辑</a>
+      </div>
+      <div>
+        <div class="sculpture">
+          <img src="{{sculpture}}" alt="">
+        </div>
+        <div>
+          <span>{{name}}</span>
+          <span>{{sex}}</span>
+          <span>{{personality}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js "></script>
+<script src="js/common.js "></script>
+<script>
+  const back = $('.operate a')[0];
+  back.addEventListener('click', function () {
+    window.history.go(-1)
+  })
+  $('.edit').on('click', function () {
+    window.location.href = 'http://127.0.0.1/edit?username=' + sessionStorage.getItem('user')
+  })
+</script>

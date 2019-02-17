@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>登录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scala=no">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/weui.css">
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_508229_97hnlte919x2bj4i.css">
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: #F4F4F4;
+      box-sizing: border-box;
+    }
+
+    body>div {
+      width: 100%;
+      height: 10rem;
+      line-height: 10rem;
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    body>div span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+    }
+
+    body>div img {
+      width: 100%;
+      height: 100%;
+    }
+
+    form>div {
+      background: white;
+      margin-bottom: 0.8rem;
+      height: 2rem;
+      font-size: 0.6rem;
+    }
+
+    .weui-btn_primary {
+      background: #048ad3;
+      width: 90%;
+    }
+
+    input.weui-input {
+      width: 70%;
+    }
+
+    .weui-btn {
+      -webkit-tap-highlight-color: #069dee;
+      margin-top: 2rem;
+    }
+
+    .weui-cell_vcode:last-of-type {
+      position: relative;
+    }
+
+    #vcode {
+      width: 4rem;
+    }
+
+    .vcode {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 5rem;
+      height: 100%;
+    }
+
+    .vcode a {
+      font-size: 0.6rem;
+    }
+
+    .type {
+      position: absolute;
+      top: 100%;
+      width: 100%;
+      left: 0;
+      padding: 0 0.8rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .type a {
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <span>请登录</span>
+    <img src="img/info-bg.jpg">
+  </div>
+  <form>
+    <div class="weui-cell ">
+      <div class="weui-cell__hd ">
+        <label class="weui-label ">用户名：</label>
+      </div>
+      <div class="weui-cell__bd ">
+        <input class="weui-input username" type="text " placeholder="请输入用户名 ">
+        <span class="iconfont icon-guanbi hide"></span>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd ">
+        <label class="weui-label">密码：</label>
+      </div>
+      <div class="weui-cell__bd ">
+        <input class="weui-input password" type="password" placeholder="请输入密码 ">
+        <span class="iconfont icon-guanbi hide"></span>
+      </div>
+    </div>
+    <div class="weui-cell weui-cell_vcode ">
+      <div class="weui-cell__hd ">
+        <label class="weui-label">验证码：</label>
+      </div>
+      <div class="weui-cell__bd ">
+        <input class="weui-input" id='vcode' type="number " placeholder="请输入验证码 ">
+      </div>
+      <div class="vcode">
+        <canvas id="canvas" width="120" height="45"></canvas>
+      </div>
+      <span class='type'>
+        <a href="register.html">注册</a>
+        <a href="#" id="changeImg">看不清，换一张</a>
+      </span>
+    </div>
+    <a class="weui-btn weui-btn_primary " href="javascript:;" id="login">登录</a>
+  </form>
+  <!-- 弹出提示开始 -->
+  <div class="toast">
+    <span></span>
+  </div>
+  <!-- 弹出提示结束 -->
+</body>
+
+</html>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js "></script>
+<script src="js/common.js "></script>
+<script>
+  // 验证码
+  let vcodes = '';
+  $('input').on('input', function () {
+    this.value = this.value.replace(/[\u4e00-\u9fa5\s]/g, '')
+    if (this.id === 'vcode') {
+      if (this.value.length > 4) {
+        this.value = this.value.slice(0, 4)
+      }
+    } else {
+      if (this.value) {
+        this.nextElementSibling.style.display = 'inline'
+      } else {
+        this.nextElementSibling.style.display = 'none'
+      }
+    }
+  })
+
+  $('.icon-guanbi').on('click', function () {
+    this.previousElementSibling.value = '';
+    this.style.display = 'none';
+  })
+  // 验证码开始
+  /**生成一个随机数**/
+  function randomNum(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+  /**生成一个随机色**/
+  function randomColor(min, max) {
+    var r = randomNum(min, max);
+    var g = randomNum(min, max);
+    var b = randomNum(min, max);
+    return "rgb(" + r + "," + g + "," + b + ")";
+  }
+  drawPic();
+  document.getElementById("changeImg").onclick = function (e) {
+    e.preventDefault();
+    drawPic();
+  }
+
+  /**绘制验证码图片**/
+  function drawPic() {
+    var arr = [];
+    var canvas = document.getElementById("canvas");
+    var width = canvas.width;
+    var height = canvas.height;
+    var ctx = canvas.getContext('2d');
+    ctx.textBaseline = 'bottom';
+
+    /**绘制背景色**/
+    ctx.fillStyle = randomColor(180, 240); //颜色若太深可能导致看不清
+    ctx.fillRect(0, 0, width, height);
+    /**绘制文字**/
+    var str = 'abcdefghijklmnopqrstuvwxyzABCEFGHJKLMNPQRSTWXY123456789';
+    for (var i = 0; i < 4; i++) {
+      var txt = str[randomNum(0, str.length)];
+      arr.push(txt);
+      ctx.fillStyle = randomColor(50, 160); //随机生成字体颜色
+      ctx.font = randomNum(30, 45) + 'px SimHei'; //随机生成字体大小
+      var x = 10 + i * 25;
+      var y = randomNum(25, 45);
+      var deg = randomNum(-45, 45);
+      //修改坐标原点和旋转角度
+      ctx.translate(x, y);
+      ctx.rotate(deg * Math.PI / 180);
+      ctx.fillText(txt, 0, 0);
+      //恢复坐标原点和旋转角度
+      ctx.rotate(-deg * Math.PI / 180);
+      ctx.translate(-x, -y);
+    }
+    vcodes = arr.join('')
+    /**绘制干扰线**/
+    for (var i = 0; i < 8; i++) {
+      ctx.strokeStyle = randomColor(40, 180);
+      ctx.beginPath();
+      ctx.moveTo(randomNum(0, width), randomNum(0, height));
+      ctx.lineTo(randomNum(0, width), randomNum(0, height));
+      ctx.stroke();
+    }
+    /**绘制干扰点**/
+    for (var i = 0; i < 100; i++) {
+      ctx.fillStyle = randomColor(0, 255);
+      ctx.beginPath();
+      ctx.arc(randomNum(0, width), randomNum(0, height), 1, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+
+  }
+  // 验证码结束
+
+  // 登录部分开始
+  (function () {
+    const username = $('.username');
+    const password = $('.password');
+    const vcode = $('#vcode')
+
+    function showToast(message) {
+      $('.toast').fadeIn();
+      $('.toast').children().html(message)
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        $('.toast').fadeOut();
+      }, 2000);
+    }
+
+    $('#login').on('click', function () {
+      const name = username.val();
+      const pw = password.val();
+      if (vcode.val().toUpperCase() != vcodes.toUpperCase()) {
+        vcode[0].value = '';
+        $('#changeImg')[0].click();
+        this.message = '验证码不正确'
+        showToast(this.message)
+      } else if (!name) {
+        this.message = '请输入用户名'
+        showToast(this.message)
+      } else if (!pw) {
+        this.message = '请输入密码'
+        showToast(this.message)
+      } else if (name.length < 6 || name.length > 16 || pw.length < 6 || pw.length > 16) {
+        this.message = '用户名或密码长度不对(6~16)'
+        showToast(this.message)
+      } else {
+        // 表单验证通过
+        const xhr = new XMLHttpRequest()
+        xhr.open('post', 'http://127.0.0.1/login')
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhr.send(`username=${name}&password=${pw}`)
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            const data = JSON.parse(xhr.responseText);
+            if (data.success) {
+              showToast('登陆成功！')
+              clearTimeout(this.timer)
+              this.timer = setTimeout(function () {
+                if (data.info) {
+                  sessionStorage.setItem('user', name)
+                  sessionStorage.getItem('user')
+                  window.location.href = 'http://127.0.0.1'
+                } else {
+                  sessionStorage.setItem('user', name)
+                  sessionStorage.getItem('user')
+                  window.location.href = 'http://127.0.0.1/edit?username' + name
+                }
+              }, 1000)
+            } else {
+              showToast(data.msg)
+            }
+          } else {
+            showToast('未知错误:' + xhr.status)
+          }
+        }
+      }
+    })
+  })()
+  // 登录部分结束
+</script>

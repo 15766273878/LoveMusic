@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>个人信息</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scala=no">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/weui.css">
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_508229_uy2yv0tcoi6hia4i.css">
+  <style>
+    .communityList {
+      width: 100vw;
+      height: 100vh;
+      background: #F4F4F4;
+      padding-top: 2rem;
+    }
+
+    .communityList>div {
+      width: 100%;
+      background: white;
+      margin-top: 0.5rem;
+      border-radius: 0.4rem;
+      position: relative;
+      box-sizing: border-box;
+      padding: 0.5rem;
+    }
+
+    .communityList div .topic {
+      width: 100%;
+      font-size: 0.8rem;
+      font-family: STFangsong;
+    }
+
+    .communityList div a {
+      position: absolute;
+      width: 0.4rem;
+      height: 0.4rem;
+      background-size: 100%;
+    }
+
+    .communityList div a.zan {
+      right: 2rem;
+      bottom: 0.5rem;
+      color: grey;
+    }
+
+    .communityList div a.hadzan {
+      right: 2rem;
+      bottom: 0.5rem;
+      color: red;
+    }
+
+    .communityList div a.discuss {
+      right: 1rem;
+      bottom: 0.5rem;
+    }
+
+    .communityList .videoPlayer {
+      width: 60%;
+      height: 4rem;
+      background: black;
+      margin: 0 auto;
+    }
+
+    .communityList .videoPlayer video {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .communityList .videoPlayer i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -1.7rem;
+      margin-left: -1rem;
+      font-size: 2rem;
+    }
+
+    h4,
+    h5 {
+      padding-left: 1rem;
+    }
+
+    div.text {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    #discuss {
+      width: 90%;
+      height: 3rem;
+      background: white;
+      box-shadow: 1px 1px 3px;
+      position: relative;
+      margin-top: 0.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    textarea {
+      padding: 0.3rem;
+    }
+
+    ul {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    ul li {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      background: gray;
+      margin-bottom: 0.2rem;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="communityList">
+    {{#if(topicData.videoUrl)}}
+    <div class="videoPlayer">
+      <video src="" data-url="{{topicData.videoUrl}}"></video>
+      <i class="iconfont icon-bofang"></i>
+    </div>
+    {{/if}}
+    <h4 class="who">{{topicData.name}}</h4>
+    <h5 style="color: gray;margin-bottom: 0.2rem;">{{topicData.time}}</h5>
+    <div class="text">{{topicData.topic}}</div>
+    <textarea id="discuss" placeholder="写下你的评论吧"></textarea>
+    <div style="width: 100%;background: #F4F4F4">
+      <button class="fr">评论</button>
+
+    </div>
+    <h4 style="padding-left: 0.8rem;">精彩评论</h4>
+    <ul>
+      {{#each(discusses)}}
+      <li>
+        <div class="time">{{this.time}}</div>
+        <div>
+          <span>昵称：</span>
+          <span>
+            <em>{{this.username}}</em>
+          </span>
+        </div>
+        <div>
+          <span>留言：</span>
+          <span>{{this.text}}</span>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  <!-- 弹出提示开始 -->
+  <div class="mask" style="display:none;background: transparent;width: 100vw;height: 100vh;position: fixed;top: 0;left: 0;z-index: 99"></div>
+  <div class="toast">
+    <span></span>
+  </div>
+  <!-- 弹出提示结束 -->
+</body>
+
+</html>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js "></script>
+<script src="js/common.js "></script>
+<script>
+  (function ($) {
+    $.getUrlParam = function (name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2]);
+      return null;
+    }
+  })(jQuery);
+  // 播放视频开始
+  $('.icon-bofang').click(function () {
+    const video = this.previousElementSibling
+    video.src = video.dataset.url
+    video.autoplay = 'autoplay'
+    video.controls = 'controls'
+    this.style.display = 'none'
+  })
+  // 播放视频结束
+
+  $('button').on('click', function () {
+    if (sessionStorage.getItem('user')) {
+      let date = new Date()
+      time =
+        `${date.getFullYear()}/${
+        date.getMonth() + 1 > 9
+          ? date.getMonth() + 1
+          : '0' + (date.getMonth() + 1)
+        }/${date.getDate() > 9 ? date.getDate() : '0' + date.getDate()} ${
+        date.getHours() > 9 ? date.getHours() : '0' + date.getHours()
+        }:${
+        date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes()
+        }:${date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds()}`
+      const json = {
+        text: $('textarea')[0].value,
+        username: sessionStorage.getItem('user'),
+        topicId: $.getUrlParam('topicId'),
+        time
+      }
+      $.ajax({
+        url: 'http://127.0.0.1/discuss',
+        type: 'post',
+        data: json,
+        dataType: 'json',
+        success: function (rs) {
+          if (rs.success) {
+            window.location.reload()
+          }
+        },
+        error: function (err) {
+          console.log(err)
+        }
+      })
+    } else {
+      showToast('您还未登录，不能评论哦')
+    }
+  })
+</script>

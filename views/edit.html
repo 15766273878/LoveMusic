@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>个人信息</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scala=no">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/weui.css">
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_508229_uy2yv0tcoi6hia4i.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    body div:first-child>div:first-child {
+      display: flex;
+      padding: 0.2rem .5rem;
+    }
+
+    body div:first-child>div:first-child h1 {
+      flex: 1;
+      text-align: center;
+    }
+
+    .sculpture,
+    .video {
+      width: 100%;
+      margin-bottom: 1rem;
+      border-top: 1px solid gainsboro;
+      border-bottom: 1px solid gainsboro;
+      display: flex;
+      font-size: 1.5rem;
+      color: gainsboro;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .sculpture {
+      height: 5rem;
+    }
+
+    .imgBox {
+      width: 4rem;
+      height: 4rem;
+      border: 1px solid cyan;
+      position: relative;
+    }
+
+    .imgBox img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .imgBox .loading {
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: black;
+      opacity: 0.6;
+    }
+
+    .imgBox .loading i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -10px;
+      margin-left: -10px;
+    }
+
+    .videoBox {
+      width: 4rem;
+    }
+
+    .weui-progress__bar {
+      width: 0;
+    }
+
+    .js_progress {
+      width: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div>
+      <a href="javascript:history.go(-1);" class="iconfont icon-htmal5icon39" style="font-size: 1rem;"></a>
+      <h1>我的个人信息</h1>
+    </div>
+    <div class="weui-cells__title">昵称</div>
+    <div class="weui-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="text" value="{{name}}">
+        </div>
+      </div>
+    </div>
+    <div class="weui-cells weui-cells_checkbox">
+      <label class="weui-cell weui-check__label" for="s11">
+        <div class="weui-cell__hd">
+          <input type="radio" class="weui-check" name="sex" id="s11" checked>
+          <i class="weui-icon-checked"></i>
+        </div>
+        <div class="weui-cell__bd">
+          <p>男</p>
+        </div>
+      </label>
+      <label class="weui-cell weui-check__label" for="s12">
+        <div class="weui-cell__hd">
+          <input type="radio" name="sex" class="weui-check" id="s12">
+          <i class="weui-icon-checked"></i>
+        </div>
+        <div class="weui-cell__bd">
+          <p>女</p>
+        </div>
+      </label>
+    </div>
+    <div class="weui-cells__title">个性签名</div>
+    <div class="weui-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="text" value="{{personality}}">
+        </div>
+      </div>
+    </div>
+    <div class="sculpture">
+      <div>头像</div>
+      <a class="imgBox">
+        {{#if(sculpture)}}
+        <img src="{{sculpture}}"> {{/if}}
+        <div class="loading">
+          <i class="weui-loading"></i>
+        </div>
+      </a>
+      <div class="weui-uploader__input-box">
+        <input id="uploaderImg" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+      </div>
+    </div>
+  </div>
+  <div class="weui-btn-area">
+    <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">确定</a>
+  </div>
+  <div class="toast">
+    <span></span>
+  </div>
+</body>
+
+</html>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js "></script>
+<script src="js/common.js "></script>
+<script>
+  $('#uploaderImg').on('change', function () {
+    $('.loading').css('display', 'block')
+    const file = this.files[0];
+    const filename = file.name;
+    const formData = new FormData();
+    formData.append('filename', filename)
+    formData.append('data', file);
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', 'http://127.0.0.1/uploadImg');
+    xhr.send(formData)
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        const data = JSON.parse(xhr.responseText)
+        if (data.success) {
+          const img = document.createElement('img');
+          img.src = data.imgUrl;
+          img.style.width = '100%';
+          img.style.height = '100%';
+          $('.imgBox').html(img);
+        } else {
+          showToast('网络错误！')
+        }
+      }
+    }
+  })
+
+  // 发送请求
+  $('.weui-btn').on('click', function () {
+    if ($('.loading').css('display') == 'none') {
+      showToast('请上传一个头像')
+    } else if ($('.loading').css('display') == 'block') {
+      showToast('请等待文件上传完成')
+    } else {
+      const name = $("input[type='text']")[0].value
+      const personality = $("input[type='text']")[1].value
+      let sex = ''
+      $("input[name='sex']").each(function (index, item) {
+        if (item.checked === true) {
+          sex = item.parentNode.nextElementSibling.children[0].innerText
+        }
+      })
+      const sculpture = $(".imgBox img")[0].src
+      var json = {
+        name,
+        personality,
+        sex,
+        sculpture
+      }
+      if (!name) {
+        showToast('请输入昵称')
+      } else {
+        $.post('http://127.0.0.1/setInfo', {
+          username: sessionStorage.getItem('user'),
+          ...json
+        }, (rs) => {
+          if (rs.success) {
+            window.location.href = "http://127.0.0.1"
+          }
+        })
+      }
+    }
+  })
+</script>

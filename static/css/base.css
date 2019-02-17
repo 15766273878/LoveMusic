@@ -1,0 +1,384 @@
+html,
+body,
+div,
+ul,
+li,
+p,
+ol,
+form,
+input,
+select,
+option,
+textarea,
+a,
+span,
+img,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dl,
+dt {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-size: 0.5rem;
+    font-family: 'Microsoft YaHei', sans-serif;
+    color: #333333;
+}
+
+a {
+    text-decoration: none;
+    color: #333333;
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+input,
+textarea {
+    outline-style: none;
+    outline: none;
+    -webkit-appearance: none;
+    border: none;
+    resize: none;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.clearfix::before,
+.clearfix::after {
+    content: '';
+    clear: both;
+    height: 0;
+    display: block;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.hide {
+    display: none;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/*头部的公共导航条开始*/
+
+div.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2rem;
+    background: #0aa9ff;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+div.nav div.container {
+    display: flex;
+    flex-direction: row;
+}
+
+div.nav div.container div {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+}
+
+div.nav div.container div a {
+    color: #b0dcd9;
+    font-size: 0.9rem;
+}
+
+div.nav div.container div a.active {
+    color: white;
+}
+
+div.nav a {
+    width: 1rem;
+    height: 1rem;
+}
+
+div.nav a.Menu {
+    background: url('../img/Menu.png') no-repeat center;
+    background-size: 1rem;
+}
+
+div.nav a.Search {
+    background: url('../img/search.png') no-repeat center;
+    background-size: 1rem;
+}
+
+/*头部的公共导航条结束*/
+
+/*底部的播放栏开始*/
+
+div.playBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    height: 4em;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+div.playBar div.container {
+    display: flex;
+    align-items: center;
+}
+
+div.playBar a#song-cover {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 0.2rem;
+}
+
+div.playBar a#song-cover img {
+    width: 100%;
+    height: 100%;
+}
+
+div.playBar a.song-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+div.playBar a.song-info h5 {
+    color: #0aa9ff;
+}
+
+div.playBar div.fr a {
+    width: 1rem;
+    height: 1rem;
+    float: right;
+    margin-left: 0.5rem;
+}
+
+div.playBar div.fr .playing {
+    background: url('../img/play.png') no-repeat center;
+    background-size: 100%;
+}
+
+div.playBar div.fr .pausing {
+    background: url('../img/pause.png') no-repeat center;
+    background-size: 100%;
+}
+
+div.playBar div.fr a#playList {
+    background: url('../img/playList.png') no-repeat center;
+    background-size: 100%;
+}
+
+/*底部的播放栏结束*/
+
+/*点击菜单出现的侧边栏菜单开始*/
+
+div.masking {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    z-index: 1;
+    opacity: 0.4;
+}
+
+ul.menu {
+    width: 80vw;
+    height: 100vh;
+    background: white;
+    position: fixed;
+    left: -80vw;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+ul.menu li.menu-bg {
+    width: 100%;
+    flex: 4;
+    background: url('../img/info-bg.jpg');
+    display: flex;
+    flex-direction: column;
+    padding-left: 0.5rem;
+}
+
+ul.menu li.menu-bg .sculpture {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+ul.menu li.menu-bg .sculpture img {
+    width: 100%;
+    height: 100%;
+}
+
+ul.menu li.menu-bg .name {
+    color: white;
+    font-size: 0.7rem;
+    font-family: 宋体;
+    font-weight: bold;
+}
+
+ul.menu li~li {
+    width: 100%;
+    flex: 1;
+    height: 2rem;
+    padding-left: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+ul.menu li.option:hover {
+    background: gainsboro;
+}
+
+ul.menu li~li img {
+    width: 1rem;
+    height: 1rem;
+}
+
+ul.menu li~li span {
+    margin-left: 0.2rem;
+    font-size: 0.6rem;
+    color: #666666;
+}
+
+ul.menu li.setting {
+    display: flex;
+    padding: 0;
+}
+
+ul.menu li.setting a {
+    flex: 1;
+    height: 100%;
+    font-size: 0.7rem;
+    color: #666;
+    position: relative;
+}
+
+ul.menu li.setting a span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*点击菜单出现的侧边栏菜单结束*/
+
+/* 封面旋转开始 */
+
+.rotateTarget {
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 3s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 3s;
+    -webkit-animation: rotate 6s linear infinite;
+    -moz-animation: rotate 6s linear infinite;
+    -o-animation: rotate 6s linear infinite;
+    animation: rotate 6s linear infinite;
+}
+
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes rotate {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(359deg);
+    }
+}
+
+@-o-keyframes rotate {
+    from {
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -o-transform: rotate(359deg);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+.toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4.4rem;
+    height: 4.4rem;
+    background: black;
+    border-radius: 0.5rem;
+    opacity: 0.8;
+    color: white;
+    display: none;
+    vertical-align: middle;
+    z-index: 100;
+    line-height: 4.4rem;
+    text-align: center;
+}
+
+.toast span {
+    font-size: 0.5rem;
+    line-height: 0.8rem;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* 封面旋转结束 */

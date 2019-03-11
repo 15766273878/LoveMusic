@@ -1,4 +1,5 @@
-需先本地安装mongodb,window系统在C盘根目录建立data文件夹,data文件夹下新建db文件夹,用于存储数据
+需先本地安装mongodb,window系统如果报错请注意有可能要在C盘根目录建立data文件夹,data文件夹下新建db文件夹,用于存储数据
+下载地址:https://www.mongodb.com/dr/fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-4.0.6-signed.msi/download
 打开mongodb安装目录(如果是默认的话大概是: C:\Program Files\MongoDB\Server\4.0\bin),运行mongo.exe
 安装完node.js后在cmd命令行下进入此文件夹，先用npm install 命令安装需要的依赖包，
 安装完成后使用node server.js命令开启服务即可用浏览器如localhost/index.html访问程序。
